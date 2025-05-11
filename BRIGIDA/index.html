@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Guia Turístico - hotel Campanile</title>
+  
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #d3eafb;
+      margin: 0;
+      padding: 20px;
+      background-image: url('');
+      background-size: cover;
+      background-repeat: no-repeat;  
+      background-position: bottom;
+    }
+   
+ 
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+    }
+ 
+    .section {
+      margin: 40px 0;
+      background-color: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+ 
+    .section h2 {
+      color: #0077cc;
+      border-bottom: 2px solid #0077cc;
+      padding-bottom: 5px;
+    }
+ 
+    .location-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+    }
+ 
+    .location {
+      flex: 1 1 200px;
+      background-color: #eaf4fb;
+      padding: 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+ 
+    .location:hover {
+      background-color: #d3eafb;
+    }
+ 
+   
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.6);
+      align-items: center;
+      justify-content: center;
+    }
+ 
+    .modal-content {
+      background-color: white;
+      padding: 20px;
+      border-radius: 12px;
+      max-width: 600px;
+      width: 90%;
+      max-height: 90vh;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      position: relative;
+      overflow-y: auto;
+    }
+ 
+    .modal-content h3 {
+      margin-top: 0;
+    }
+ 
+    .image-carousel {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      margin-top: 10px;
+    }
+ 
+    .image-carousel img {
+      height: 100px;
+      border-radius: 8px;
+      flex-shrink: 0;
+    }
+ 
+    .close-btn {
+      position: absolute;
+      top: 10px; right: 15px;
+      font-size: 20px;
+      cursor: pointer;
+      color: #888;
+    }
+ 
+ 
+ 
+ 
+   
+ 
+    .close-btn:hover {
+      color: #000;
+    }
+    a{
+      color:#000;
+    }
+ 
+    a:link {
+  text-decoration: none;
+}
+ 
+ 
+ 
+  </style>
+</head>
+<body>
+
+ 
+  <h1>Around Campanile</h1>
+ 
+  <div class="section">
+    <h2>🍽 Restaurantes</h2>
+    <div class="location-list">
+      <a class="location" href="mostra.html" target="_blank">Marisqueira O Dias</a>
+      <a class="location" href="casa.html" target="_blank">A Casa do Peixe</a>
+      <a class="location" href="peixoco.html" target="_blank">Peixoco</a>
+      <a class="location" href="pinga.html" target="_blank">Pinga Amor</a>
+      <a class="location" href="out.html" target="_blank">Outrora</a>
+      <a class="location" href="adega.html" target="_blank">Adega Léo do Petisco</a>
+   
+    </div>
+ 
+ 
+  </div>
+ 
+  <div class="section">
+    <h2>🏖 Praias</h2>
+    <div class="location-list">
+      <a class="location" href="figueirinha.html" target="_blank">Praia da Figueirinha</a>
+      <a class="location" href="albarquel.html" target="_blank">Albarquel</a>
+      <a class="location" href="galapos.html" target="_blank">Galapos</a>
+      <a class="location" href="galapinhos.html" target="_blank">Galapinhos</a>
+      <a class="location" href="creiro.html" target="_blank">Creiro</a>
+    </div>
+  </div>
+ 
+  <div class="section">
+    <h2>🏛 Pontos Turísticos</h2>
+    <div class="location-list">
+      <a class="location" href="igreja.html" target="_blank">Igreja do Convento</a>
+      <a class="location" href="parque.html" target="_blank">Parque do Bonfim</a>
+      <a class="location" href="maeds.html" target="_blank">MAEDS</a>
+      <a class="location" href="saojuliao.html" target="_blank">Igreja São Julião</a>
+      <a class="location" href="mercado.html" target="_blank">Mercado do Livramento</a>
+      <a class="location" href="praca.html" target="_blank">Praça do Bocage</a>
+      <a class="location" href="museu.html" target="_blank">Museu do Trabalho Michel Giacometti</a>
+      <a class="location" href="baia.html" target="_blank">Casa da Baía</a>
+      <a class="location" href="corpo.html" target="_blank">Casa do corpo santo</a>
+    </div>
+  </div>
+ 
+ 
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal()">&times;</span>
+      <div id="modalText"></div>
+    </div>
+  </div>
+ 
+  <script>
+    const locais = {
+ 
+      'Marisqueira O Dias':{
+        titulo: 'Marisqueira O Dias',
+        descricao: '',
+        espcialidade1: '',
+       
+        Morada: 'Morada: Av. Jaime Rebelo 31 Setubal 2900 ',
+        Telefone: 'Telefone: 265 548 225',
+        horario1: '',
+        precomedio: '',
+        distancia: 'Distância do hotel: ',
+        bus: 'Bus: ',
+        classificação: '',
+        imagens: [
+          'restaurante.png',
+          'restaurante2.png'
+        ]
+ 
+      },
+      'Casa do Peixe': {
+        titulo: 'A Casa do Peixe',
+        descricao: 'conhecido pela sua especialização em peixe grelhado no carvão, o restaurante oferece pratos tradicionais da cozinha setubalense com um toque moderno. Das mais típicas especialidades têm:',
+        espcialidade1: 'Choco vivo, Cavalas Raias, Sargos e pata-roxa',
+       
+        Morada: 'Morada: Rua General Gomes Freire, 138, 2910-517 Setúbal',
+        Telefone: 'Telefone: +351 960 331 167',
+        horario1: 'Horário: Terça a domingo, das 12h às 15h e das 19h às 22h',
+        precomedio: 'Preço médio: Entre 10€ e 20€',
+        distancia: 'Distância do hotel: ',
+        bus: 'Bus: ',
+        classificação: 'Classificação: 8.7/10 no TheFork, com elogios à qualidade do peixe e ao ambiente acolhedor',
+        imagens: [
+          'restaurante.png',
+          'restaurante2.png'
+        ]
+      },
+      'Pinga Amor': {
+        titulo: 'Pinga Amor',
+        descricao: 'Com mais de 30 anos de hoistoria, pinga amor está localizado em Setubal sendo um restaurante muito conhecido na zona, principamente por quem gosta de marisco e petiscos típicos portugueses. O espaço é acolhedor, com uma decoração ligada ao mar, o que o torna um ambiente bastante agradavel. O restaurante é conhecido por ter pratos bem servidos e saborosos. Alguns dos mais populares são:',
+        espcialidade1: 'Choco frito, Arroz de marisco, Caracóis, Peixe grelhado',
+        Morada: 'Morada: Rua do Morgado de Setúbal, 61 Setúbal 2910-672',
+        Telefone: 'Telefone: 934 254 483',
+        horario1: 'Horário: Terça a domingo, das 12h às 15h e das 19h às 22h',
+        precomedio: 'O preço médio por pessoa: 19€',
+        distancia: 'Distância do hotel: ',
+        bus: 'Bus: ',
+        classificação: 'Classificação média: 9.1/10 no TheFork, elogiado pela qualidade do marisco, atendimento e ambiente típico',
+       
+      imagens: [
+          'https://via.placeholder.com/400x250?text=Pinga+Amor+1',
+          'https://via.placeholder.com/400x250?text=Pinga+Amor+2'
+        ]
+ 
+      },
+      'Outrora': {
+        titulo: 'Outrora',
+        descricao: 'Restaurante moderno com fusão de sabores e bom vinho.',
+        espcialidade1:'',
+        Morada: '',
+        Telefone: '',
+        horario1: '',
+        precomedio: '',
+        distancia: 'Distância do hotel: ',
+        bus: 'Bus: ',
+        classificação: '',
+       
+       
+        imagens: [
+          'https://via.placeholder.com/400x250?text=Outrora+1',
+          'https://via.placeholder.com/400x250?text=Outrora+2'
+        ]
+      },
+      'Barriga da Freira': {
+        titulo: 'Barriga da Freira',
+        descricao: 'Cozinha regional com petiscos deliciosos.',
+        espcialidade1:'',
+        Morada: '',
+        Telefone: '',
+        horario1: '',
+        precomedio: '',
+        distancia: 'Distância do hotel: ',
+        bus: 'Bus: ',
+        classificação: '',
+        imagens: [
+          'https://via.placeholder.com/400x250?text=Barriga+da+Freira+1',
+          'https://via.placeholder.com/400x250?text=Barriga+da+Freira+2'
+        ]
+      },
+      'Adega Leo': {
+        titulo: 'Adega Léo do Petisco',
+        descricao: 'Famoso pelos petiscos de polvo e moelas.',
+        espcialidade1:'',
+        Morada: '',
+        Telefone: '',
+        horario1: '',
+        precomedio: '',
+        distancia: 'Distância do hotel: ',
+        bus: 'Bus: ',
+        classificação: '',
+        imagens: [
+          'https://via.placeholder.com/400x250?text=Adega+Leo+1',
+          'https://via.placeholder.com/400x250?text=Adega+Leo+2'
+        ]
+      },
+      'Figueirinha': {
+        titulo: 'Praia da Figueirinha',
+        descricao: 'Praia extensa com águas calmas, ideal para famílias.',
+        espcialidade1:'',
+        Morada: '',
+        Telefone: '',
+        horario1: '',
+        precomedio: '',
+        distancia: 'Distância do hotel: ',
+        bus: 'Bus: ',
+        classificação: '',
+        imagens: [
+          'https://via.placeholder.com/400x250?text=Figueirinha+1',
+          'https://via.placeholder.com/400x250?text=Figueirinha+2'
+        ]
+      },
+      'Albarquel': {
+        titulo: 'Praia de Albarquel',
+        descricao: 'Praia urbana com boas infraestruturas e fácil acesso.',
+        espcialidade1:'',
+        Morada: '',
+        Telefone: '',
+        horario1: '',
+        precomedio: '',
+        distancia: 'Distância do hotel: ',
+        bus: 'Bus: ',
+        classificação: '',
+        imagens: [
+          'https://via.placeholder.com/400x250?text=Albarquel+1',
+          'https://via.placeholder.com/400x250?text=Albarquel+2'
+        ]
+      },
+      'Galapos': {
+        titulo: 'Praia de Galapos',
+        descricao: 'Águas cristalinas e cenário natural deslumbrante.',
+        espcialidade1:'',
+        Morada: '',
+        Telefone: '',
+        horario1: '',
+        precomedio: '',
+        distancia: 'Distância do hotel: ',
+        bus: 'Bus: ',
+        classificação: '',
+        imagens: [
+          'https://via.placeholder.com/400x250?text=Galapos+1',
+          'https://via.placeholder.com/400x250?text=Galapos+2'
+        ]
+      },
+      'Galapinhos': {
+        titulo: 'Praia de Galapinhos',
+        descricao: 'Eleita uma das mais bonitas da Europa, escondida e tranquila.',
+        espcialidade1:'',
+        Morada: '',
+        Telefone: '',
+        horario1: '',
+        precomedio: '',
+        distancia: 'Distância do hotel: ',
+        bus: 'Bus: ',
+        classificação: '',
+        imagens: [
+          'https://via.placeholder.com/400x250?text=Galapinhos+1',
+          'https://via.placeholder.com/400x250?text=Galapinhos+2'
+        ]
+      },
+      'Creiro': {
+        titulo: 'Praia do Creiro',
+        descricao: 'Excelente para mergulho e perto de ruínas romanas.',
+        espcialidade1:'',
+        Morada: '',
+        Telefone: '',
+        horario1: '',
+        precomedio: '',
+        distancia: 'Distância do hotel: ',
+        bus: 'Bus: ',
+        classificação: '',
+        imagens: [
+          'https://via.placeholder.com/400x250?text=Creiro+1',
+          'https://via.placeholder.com/400x250?text=Creiro+2'
+        ]
+      },
+      'Convento': {
+        titulo: 'Igreja do Convento',
+        descricao: 'Igreja antiga com belos vitrais e história rica.',
+        espcialidade1:'',
+        Morada: '',
+        Telefone: '',
+        horario1: '',
+        precomedio: '',
+        distancia: 'Distância do hotel: ',
+        bus: 'Bus: ',
+        classificação: '',
+        imagens: [
+          'https://via.placeholder.com/400x250?text=Convento+1',
+          'https://via.placeholder.com/400x250?text=Convento+2'
+        ]
+      },
+      'Bonfim': {
+        titulo: 'Parque do Bonfim',
+        descricao: 'Espaço verde para lazer, com jardins e parque infantil.',
+        espcialidade1:'',
+        Morada: '',
+        Telefone: '',
+        horario1: '',
+        precomedio: '',
+        distancia: 'Distância do hotel: ',
+        bus: 'Bus: ',
+        classificação: '',
+        imagens: [
+          'https://via.placeholder.com/400x250?text=Bonfim+1',
+          'https://via.placeholder.com/400x250?text=Bonfim+2'
+        ]
+      },
+      'MAEDS': {
+        titulo: 'MAEDS',
+        descricao: 'Museu de Arqueologia e Etnografia da região de Setúbal.',
+        espcialidade1:'',
+        Morada: '',
+        Telefone: '',
+        horario1: '',
+        precomedio: '',
+        distancia: 'Distância do hotel: ',
+        bus: 'Bus: ',
+        classificação: '',
+        imagens: [
+          'https://via.placeholder.com/400x250?text=MAEDS+1',
+          'https://via.placeholder.com/400x250?text=MAEDS+2'
+        ]
+      },
+      'Mercado': {
+        titulo: 'Mercado do Livramento',
+        descricao: 'Um dos mercados mais bonitos do mundo, com azulejos históricos.',
+        espcialidade1:'',
+        Morada: '',
+        Telefone: '',
+        horario1: '',
+        precomedio: '',
+        distancia: 'Distância do hotel: ',
+        bus: 'Bus: ',
+        classificação: '',
+        imagens: [
+          'https://via.placeholder.com/400x250?text=Mercado+1',
+          'https://via.placeholder.com/400x250?text=Mercado+2'
+        ]
+      },
+      'Bocage': {
+        titulo: 'Praça do Bocage',
+        descricao: 'Centro da cidade com cafés, estátua de Bocage e ambiente animado.',
+        espcialidade1:'',
+        Morada: '',
+        Telefone: '',
+        horario1: '',
+        precomedio: '',
+        distancia: 'Distância do hotel: ',
+        bus: 'Bus: ',
+        classificação: '',
+        imagens: [
+          'https://via.placeholder.com/400x250?text=Bocage+1',
+          'https://via.placeholder.com/400x250?text=Bocage+2'
+        ]
+      },
+      'Museu': {
+        titulo: 'Museu do Trabalho Michel Giacometti',
+        descricao: 'Museu dedicado à história do trabalho e cultura local.',
+        espcialidade1:'',
+        Morada: '',
+        Telefone: '',
+        horario1: '',
+        precomedio: '',
+        distancia: 'Distância do hotel: ',
+        bus: 'Bus: ',
+        classificação: '',
+        imagens: [
+          'https://via.placeholder.com/400x250?text=Museu+1',
+          'https://via.placeholder.com/400x250?text=Museu+2'
+        ]
+      },
+      'Baia': {
+        titulo: 'Casa da Baía',
+        descricao: 'Centro de promoção turística com produtos regionais e eventos.',
+        espcialidade1:'',
+        Morada: '',
+        Telefone: '',
+        horario1: '',
+        precomedio: '',
+        distancia: 'Distância do hotel: ',
+        bus: 'Bus: ',
+        classificação: '',
+        imagens: [
+          'https://via.placeholder.com/400x250?text=Baia+1',
+          'https://via.placeholder.com/400x250?text=Baia+2'
+        ]
+      }
+    };
+ 
+    function showModal(key) {
+      const local = locais[key];
+      const modalText = document.getElementById('modalText');
+      const imagensHTML = local.imagens.map(src => `<img src="${src}" alt="${local.titulo}">`).join('');
+      modalText.innerHTML = `
+        <h3>${local.titulo}</h3>
+        <p>${local.descricao}</p>
+        <p>${local.espcialidade1}</p>
+        <p>${local.Morada}</p>
+        <p>${local.Telefone}</p>
+        <p>${local.horario1}</p>
+        <p>${local.precomedio}</p>
+        <p>${local.distancia}</p>
+        <p>${local.bus}</p>
+        <p>${local.classificação}</p>
+        <div class="image-carousel">${imagensHTML}</div>
+      `;
+      document.getElementById('modal').style.display = 'flex';
+    }
+ 
+    function closeModal() {
+      document.getElementById('modal').style.display = 'none';
+    }
+  </script>
+ 
+</body>
+</html>
+ 
